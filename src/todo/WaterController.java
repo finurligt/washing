@@ -41,7 +41,7 @@ public class WaterController extends PeriodicThread {
                 break;
             case WaterEvent.WATER_FILL:
                 if (!ackSent){
-                    if(currLevel < level - (delta + 0.01)) {
+                    if(currLevel < level - (delta + 0.02)) {
                         washingMachine.setDrain(false);
                         washingMachine.setFill(true);
                         if(lastLevel < currLevel) {

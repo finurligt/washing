@@ -30,7 +30,10 @@ public class WashingController implements ButtonListener {
                 program = new WashingProgram1(washingMachine,speed,temperatureController,waterController,spinController);
                 program.start();
                 break;
-            case 2: break;
+            case 2:
+                program = new WashingProgram2(washingMachine,speed,temperatureController,waterController,spinController);
+                program.start();
+                break;
             case 3: {
                 program = new WashingProgram3(washingMachine,speed,temperatureController,waterController,spinController);
                 program.start();
