@@ -13,7 +13,7 @@ public class SpinController extends PeriodicThread {
 	private boolean isFresh;
 
 	public SpinController(AbstractWashingMachine mach, double speed) {
-		super((long) (1000/speed)); // TODO: replace with suitable period
+		super((long) (60 * 1000/speed)); // TODO: replace with suitable period
 		washingMachine = mach;
 	}
 

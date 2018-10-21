@@ -9,9 +9,10 @@ public class WaterController extends PeriodicThread {
     private AbstractWashingMachine washingMachine;
     private int mode;
     private WashingProgram program;
-    private boolean spinLeft;
     private double level;
     private boolean ackSent;
+    private double lastLevel;
+    private double delta;
 
 	public WaterController(AbstractWashingMachine mach, double speed) {
 		super((long) (1000/speed)); // TODO: replace with suitable period
@@ -19,9 +20,11 @@ public class WaterController extends PeriodicThread {
 	}
 
 	public void perform() {
+        //System.out.println("entering waterC loop");
         WaterEvent event = (WaterEvent) mailbox.tryFetch();
         //event is null if there is no new task given
         if (event != null) { //aka if new task given
+            System.out.println("new water event!: " + event);
             mode = event.getMode();
             program = (WashingProgram) event.getSource();
             ackSent = false;
@@ -30,6 +33,7 @@ public class WaterController extends PeriodicThread {
 
 
         double currLevel = washingMachine.getWaterLevel();
+        //System.out.println("water level: " + currLevel);
         switch (mode) {
             case WaterEvent.WATER_IDLE:
                 washingMachine.setFill(false);
@@ -37,9 +41,13 @@ public class WaterController extends PeriodicThread {
                 break;
             case WaterEvent.WATER_FILL:
                 if (!ackSent){
-                    if(currLevel < level) {
+                    if(currLevel < level - (delta + 0.01)) {
                         washingMachine.setDrain(false);
                         washingMachine.setFill(true);
+                        if(lastLevel < currLevel) {
+                            delta = currLevel - lastLevel;
+                        }
+                        lastLevel = currLevel;
                     } else {
                         washingMachine.setFill(false);
                         program.putEvent(new AckEvent(this));

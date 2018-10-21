@@ -26,7 +26,10 @@ public class WashingController implements ButtonListener {
         RTThread program;
         switch (theButton) {
             case 0: break;
-            case 1: break;
+            case 1:
+                program = new WashingProgram1(washingMachine,speed,temperatureController,waterController,spinController);
+                program.start();
+                break;
             case 2: break;
             case 3: {
                 program = new WashingProgram3(washingMachine,speed,temperatureController,waterController,spinController);

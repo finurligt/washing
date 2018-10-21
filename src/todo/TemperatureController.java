@@ -51,7 +51,7 @@ public class TemperatureController extends PeriodicThread {
 					ackAlreadySent=true;
 				} else if (targetTemp - washingMachine.getTemperature() >= 2 && washingMachine.getWaterLevel()>0) {
 					washingMachine.setHeating(true);
-					System.out.println("heat on");
+					//System.out.println("heat on");
 				}
 				break;
 

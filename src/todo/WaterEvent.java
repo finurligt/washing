@@ -8,6 +8,7 @@
 
 package todo;
 
+import com.sun.org.apache.bcel.internal.generic.RETURN;
 import se.lth.cs.realtime.event.*;
 
 /**
@@ -45,6 +46,19 @@ public class WaterEvent extends RTEvent {
 	public double getLevel() {
 		return myLevel;
 	}
+
+	@Override
+    public String toString() {
+	    switch (myMode) {
+            case WATER_IDLE:
+                return "WATER_IDLE";
+            case WATER_FILL:
+                return "WATER_FILL, LEVEL: " + myLevel;
+            case WATER_DRAIN:
+                return "WATER_DRAIN";
+        }
+        return null;
+    }
 
 	// ------------------------------------------------------ PUBLIC CONSTANTS
 
