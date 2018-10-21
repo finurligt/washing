@@ -6,12 +6,12 @@ import done.AbstractWashingMachine;
 
 
 public class TemperatureController extends PeriodicThread {
-	AbstractWashingMachine washingMachine;
-	TemperatureEvent event;
-	double targetTemp;
-	WashingProgram program;
-	boolean ackAlreadySent=false;
-	int mode;
+	private AbstractWashingMachine washingMachine;
+	private TemperatureEvent event;
+	private double targetTemp;
+	private WashingProgram program;
+	private boolean ackAlreadySent=false;
+	private int mode;
 	public TemperatureController(AbstractWashingMachine mach, double speed) {
 		super((long) (1000/speed)); // TODO: replace with suitable period
 		washingMachine = mach;
