@@ -34,8 +34,6 @@ public class WaterController extends PeriodicThread {
             case WaterEvent.WATER_IDLE:
                 washingMachine.setFill(false);
                 washingMachine.setDrain(false);
-                program.putEvent(new AckEvent(this));
-                ackSent = true;
                 break;
             case WaterEvent.WATER_FILL:
                 if (!ackSent){
