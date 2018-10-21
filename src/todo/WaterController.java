@@ -40,6 +40,7 @@ public class WaterController extends PeriodicThread {
             case WaterEvent.WATER_FILL:
                 if (!ackSent){
                     if(currLevel < level) {
+                        washingMachine.setDrain(false);
                         washingMachine.setFill(true);
                     } else {
                         washingMachine.setFill(false);
@@ -51,6 +52,7 @@ public class WaterController extends PeriodicThread {
             case WaterEvent.WATER_DRAIN:
                 if(!ackSent) {
                     if(currLevel > 0) {
+                        washingMachine.setFill(false);
                         washingMachine.setDrain(true);
                     } else {
                         program.putEvent(new AckEvent(this));
